@@ -1,2 +1,1 @@
-
-Feel free to add some documentation or simply add a link to the online manual.
+Please read the documentation at /doc/build/index.html for an explanation of how this extension works.
