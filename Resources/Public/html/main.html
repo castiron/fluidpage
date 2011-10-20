@@ -1,0 +1,66 @@
+<!doctype html>
+
+<head>
+	<title>Sample FluidPage Template</title>
+</head>
+
+<!-- ###LAYOUT### -->
+<body class="{bodyClass}">
+	<div id="navigationAids">
+		<ul>
+			<li><a href="about-typo3/#navigationFirstLevel">Skip to navigation</a></li>
+			<li><a href="about-typo3/#mainContent">Skip to content</a></li>
+		</ul>
+	</div>
+	<div id="outerWrap">
+		<div id="header">
+			<h1>{page.title}</h1>
+			<div id="topMenu"></div>
+			<div id="languageMenu"></div>
+		</div>
+		<div id="navigationFirstLevel">
+			<div id="navigationFirstLevelMenu">
+				<f:CObject typoscriptObjectPath="lib.primaryNav" />
+			</div>
+		</div>
+		<f:if condition="{constants.showTop} == 1">
+		<div style="background: #FFF; padding: 15px; border-top: 2px solid #515151; border-bottom: 2px solid #515151">
+			<f:CObject typoscriptObjectPath="lib.content.top" />
+		</div>
+		</f:if>
+		<div id="contentWrap">
+			<div id="navigationSecondLevel">
+				<h2>Second Level Navigation</h2>
+				<div id="navigationContent">
+					<f:CObject typoscriptObjectPath="lib.secondaryNav" />
+				</div>
+			</div>
+			<f:if condition="{constants.showLeftColumn} == 1">
+			<div id="main">
+				<f:CObject typoscriptObjectPath="lib.breadcrumb" />			
+				<div id="mainContent">
+					<h2>Left Column</h2>
+					<f:CObject typoscriptObjectPath="lib.content.leftCol" />
+				</div>
+			</div>
+			</f:if>
+			<f:if condition="{constants.showRightColumn} == 1">
+			<div id="secondary">
+				<div id="secondaryContent">
+				<div class="secondaryContentSection">
+					<h3>Right Column</h3>
+					<f:CObject typoscriptObjectPath="lib.content.rightCol" />				
+				</div></div>
+			</div>
+			</f:if>
+		</div>
+		<div id="footer">
+			<h3>Footer</h3>
+			<div id="footerContent">
+				<h4 class="csc-firstHeader">Powered by <a href="https://github.com/castiron/fluidpage">FluidPage</a> and brought to you by <a href="http://castironcoding.com">Cast Iron Coding</a></h4>
+			</div>
+		</div>
+	</div>
+</body>
+<!-- ###LAYOUT### --> 
+</html>
