@@ -106,12 +106,25 @@ class tx_fluidpage_pi1 extends tslib_pibase {
 		$view = $this->constructView($templateFile);
 		$this->assignTyposcriptVariables($view);
 		
+		// get layout constants
+		$constants = $this->conf['templates.'][$layoutUID.'.']['constants.'];
+		if(!is_array($constants)) $constants = array();
+
+		// get global constants
+		$gConstants = $this->conf['constants.'];
+		if(!is_array($gConstants)) $gConstants = array();
+
+		$constants = array_merge($gConstants,$constants);
+		
 		// fluidpage variable assignment
-		$view->assign('data', $this->cObj->data);
+		$view->assign('data', $this->cObj->data); // legacy; remove it at some point.
+		$view->assign('page', $this->cObj->data);
 		$view->assign('current', $this->cObj->data[$this->cObj->currentValKey]);
 		$view->assign('layout', $layoutUID);
 		$view->assign('layoutClass', $this->getLayoutClassName());
-
+		$view->assign('constants',$constants);
+		$view->assign('constants',$constants);
+		
 		// render the view and assign output to $this->content;
 		$this->setContent($view->render());
 
@@ -179,13 +192,6 @@ class tx_fluidpage_pi1 extends tslib_pibase {
 		$view = t3lib_div::makeInstance('Tx_Fluid_View_StandaloneView');
 		$view->setTemplateSource($body);
 
-		// override the default layout path via typoscript
-		$layoutRootPath = $this->conf['settings.']['layoutRootPath'];
-		if($layoutRootPath) {
-			$layoutRootPath = t3lib_div::getFileAbsFileName($layoutRootPath);
-			$view->setLayoutRootPath($layoutRootPath);
-		}
-
 			// override the default partials path via typoscript
 		$partialRootPath = $this->conf['settings.']['partialRootPath'];
 		if($partialRootPath) {
@@ -197,27 +203,6 @@ class tx_fluidpage_pi1 extends tslib_pibase {
 		$format = $this->conf['format'];
 		if ($format) {
 			$view->setFormat($format);
-		}
-
-		$requestControllerExtensionName = isset($this->conf['extbase.']['controllerExtensionName'])
-			? $this->cObj->stdWrap($this->conf['extbase.']['controllerExtensionName'], $this->conf['extbase.']['controllerExtensionName'])
-			: $this->conf['extbase.']['controllerExtensionName'];
-		if($requestControllerExtensionName) {
-			$view->getRequest()->setControllerExtensionName($requestControllerExtensionName);
-		}
-
-		$requestControllerName = isset($this->conf['extbase.']['controllerName'])
-			? $this->cObj->stdWrap($this->conf['extbase.']['controllerName'], $this->conf['extbase.']['controllerName'])
-			: $this->conf['extbase.']['controllerName'];
-		if($requestControllerName) {
-			$view->getRequest()->setControllerName($requestControllerName);
-		}
-
-		$requestControllerActionName = isset($this->conf['extbase.']['controllerActionName'])
-			? $this->cObj->stdWrap($this->conf['extbase.']['controllerActionName'], $this->conf['extbase.']['controllerActionName'])
-			: $this->conf['extbase.']['controllerActionName'];
-		if($requestControllerActionName) {
-			$view->getRequest()->setControllerActionName($requestControllerActionName);
 		}
 
 		return $view;
