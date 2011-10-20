@@ -1,0 +1,17 @@
+plugin.tx_fluidpage_pi1 {
+	
+	settings {
+		partialRootPath = {$tx_fluidpage_pi1.settings.partialsPath}
+		layoutRootPath = {$tx_fluidpage_pi1.settings.layoutRootPath}
+		defaultFile = EXT:fluidpage/Resources/Public/html/template.html
+	}
+	
+	templates {
+		1 = path/to/template/file
+	}
+	
+	render {
+		partialRootPath < plugin.tx_fluidpage_pi1.settings.partialRootPath
+		layoutRootPath < plugin.tx_fluidpage_pi1.settings.layoutRootPath
+	}
+}

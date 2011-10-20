@@ -1,0 +1,7 @@
+tx_fluidpage_pi1 {
+	settings {
+		partialsPath = EXT:t3site/Sites/Main/Resources/Private/Partials
+		layoutRootPath = EXT:t3site/Sites/Main/Resources/Private/Layouts
+		variablesTyposcriptPath = layoutLib
+	}
+}

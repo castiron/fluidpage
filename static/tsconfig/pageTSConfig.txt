@@ -1,0 +1,11 @@
+TCEFORM.pages {
+	layout.disabled = 1
+	newUntil.disabled = 1
+	module.disabled = 1
+	backend_layout {
+		label = Page Template (this page only)
+	}
+	backend_layout_next_level {
+		label = Page Template (subpages of this page)
+	}
+}

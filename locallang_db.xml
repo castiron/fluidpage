@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'fluidpage'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="backend_layout.tx_fluidpage_body_class">Body Class Name</label>
+		</languageKey>
+	</data>
+</T3locallang>
