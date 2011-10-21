@@ -107,12 +107,41 @@ On your root page (or wherever you like to put your master Typoscript template) 
 	page {
 		10 < plugin.tx_fluidpage_pi1
 		10 {
+			settings {
+				partialRootPath = EXT:fluidpage/Resources/Public/Partials/
+		        layoutRootPath = EXT:fluidpage/Resources/Public/Layouts/
+		        variables {
+		        	tagline  = TEXT
+		        	tagline {
+						value = This tagline on page "{field:title}" is an example of a global template variable
+						insertData = 1
+						stdWrap = <strong>|</strong>
+		        	}
+		        }
+			}
 			templates {
 				1 {
 					file = EXT:fluidpage/Resources/Public/html/main.html
 					constants {
 						showLeftColumn = 1
 						showRightColumn = 1
+						bodyClass = column-2
+					}
+					variables {
+						tagline  = TEXT
+		        		tagline {
+							value = Example: template variable overriding a global variables on page "{field:title}."
+							insertData = 1
+							stdWrap = <strong>|</strong>
+		        		}
+					}
+				}
+				2 {
+					file = EXT:fluidpage/Resources/Public/html/main.html
+					constants {
+						showLeftColumn = 1
+						showRightColumn = 0
+						bodyClass = column-1
 					}
 				}
 			}

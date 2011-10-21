@@ -133,12 +133,41 @@ page = PAGE
 page {
         10 &lt; plugin.tx_fluidpage_pi1
         10 {
+                settings {
+                        partialRootPath = EXT:fluidpage/Resources/Public/Partials/
+                layoutRootPath = EXT:fluidpage/Resources/Public/Layouts/
+                variables {
+                        tagline  = TEXT
+                        tagline {
+                                        value = This tagline on page &quot;{field:title}&quot; is an example of a global template variable
+                                        insertData = 1
+                                        stdWrap = &lt;strong&gt;|&lt;/strong&gt;
+                        }
+                }
+                }
                 templates {
                         1 {
                                 file = EXT:fluidpage/Resources/Public/html/main.html
                                 constants {
                                         showLeftColumn = 1
                                         showRightColumn = 1
+                                        bodyClass = column-2
+                                }
+                                variables {
+                                        tagline  = TEXT
+                                tagline {
+                                                value = Example: template variable overriding a global variables on page &quot;{field:title}.&quot;
+                                                insertData = 1
+                                                stdWrap = &lt;strong&gt;|&lt;/strong&gt;
+                                }
+                                }
+                        }
+                        2 {
+                                file = EXT:fluidpage/Resources/Public/html/main.html
+                                constants {
+                                        showLeftColumn = 1
+                                        showRightColumn = 0
+                                        bodyClass = column-1
                                 }
                         }
                 }

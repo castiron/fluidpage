@@ -77,8 +77,6 @@ pre, code, kbd, samp { font-family: monospace, sans-serif; }
 * Minimal base styles.
 */
 
-/* Always force a scrollbar in non-IE */
-html { overflow-y: scroll; }
 
 /* Accessible focus treatment: people.opera.com/patrickl/experiments/keyboard/test */
 a:hover, a:active { outline: none; }
@@ -183,7 +181,6 @@ div#outerWrap {
 	width:900px;
 	text-align:center;
 	margin:0 auto;
-	overflow:auto;
 }
 div#outerWrap div {
 	text-align:left;
@@ -201,6 +198,11 @@ div#main {
 	width: 53%;
 	float:left;
 }
+
+body.column-1 div#main {
+	width: 75%
+}
+
 div#secondary {
 	width:24%;
 	float:right;
@@ -239,7 +241,6 @@ div#secondayContent, div#navigationContent, div#footer {
 }
 div#mainContent {
 	padding:30px;
-	overflow:hidden;
 }
 body {
 	background: #494949 url(../images/bg.gif) top left repeat-x;

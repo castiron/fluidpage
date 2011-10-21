@@ -5,7 +5,7 @@
 </head>
 
 <!-- ###LAYOUT### -->
-<body class="{bodyClass}">
+<body class="{constants.bodyClass}">
 	<div id="navigationAids">
 		<ul>
 			<li><a href="about-typo3/#navigationFirstLevel">Skip to navigation</a></li>
@@ -15,6 +15,7 @@
 	<div id="outerWrap">
 		<div id="header">
 			<h1>{page.title}</h1>
+			<h2 style="position: relative; top: 100px; left: 20px; font-size: 12px; color: #FFF">{tagline}</h2>
 			<div id="topMenu"></div>
 			<div id="languageMenu"></div>
 		</div>
@@ -23,11 +24,7 @@
 				<f:CObject typoscriptObjectPath="lib.primaryNav" />
 			</div>
 		</div>
-		<f:if condition="{constants.showTop} == 1">
-		<div style="background: #FFF; padding: 15px; border-top: 2px solid #515151; border-bottom: 2px solid #515151">
-			<f:CObject typoscriptObjectPath="lib.content.top" />
-		</div>
-		</f:if>
+
 		<div id="contentWrap">
 			<div id="navigationSecondLevel">
 				<h2>Second Level Navigation</h2>
