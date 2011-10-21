@@ -39,14 +39,6 @@ class Tx_Fluidpage_Controller_Template {
 		}
 	}
 
-	protected function configureViewLayoutPath() {
-		// set layout path
-		$layoutRootPath= t3lib_div::getFileAbsFileName($this->configuration['layoutRootPath']);
-		if($layoutRootPath) {
-			$this->view->setLayoutRootPath($layoutRootPath);
-		}
-	}
-
 	protected function configureViewAssignConstants() {
 		$globalConstants = $this->configuration['constants.'];
 		$templateConstants = $this->getTemplate()->getConstants();
@@ -105,7 +97,6 @@ class Tx_Fluidpage_Controller_Template {
 		$this->view = $this->createView();
 		$this->configureViewTemplateSource();
 		$this->configureViewPartialPath();
-		$this->configureViewLayoutPath();
 		$this->configureViewFormat();
 		$this->configureViewAssignVariables();
 		$this->configureViewAssignConstants();

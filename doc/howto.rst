@@ -109,7 +109,6 @@ On your root page (or wherever you like to put your master Typoscript template) 
 		10 {
 			settings {
 				partialRootPath = EXT:fluidpage/Resources/Public/Partials/
-		        layoutRootPath = EXT:fluidpage/Resources/Public/Layouts/
 		        variables {
 		        	tagline  = TEXT
 		        	tagline {
