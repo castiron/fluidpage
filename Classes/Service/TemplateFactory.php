@@ -11,22 +11,42 @@ class Tx_Fluidpage_Service_TemplateFactory {
 
 	private $configuration = array();
 
+	/**
+	 * Template factory constructor. The factory needs the fluidpage configuration to determine which template model to
+	 * create.
+	 * @param $configuration
+	 */
 	public function __construct($configuration) {
 		$this->configuration = $configuration;
 	}
 
+	/**
+	 * Takes the rootline as an argument and uses it to determine which template model to return for the current page.
+	 * @param $rootline
+	 * @return Tx_Fluidpage_Model_Template
+	 */
 	public function getTemplateFromRootline($rootline) {
 		$layoutUid = $this->getLayoutUidFromRootline($rootline);
 		$templateModel = $this->getTemplateModelFromLayoutUid($layoutUid);
 		return $templateModel;
 	}
 
+	/**
+	 * Takes a layout UID as an argument and instantiates and returns the corresponding template.
+	 * @param $uid
+	 * @return Tx_Fluidpage_Model_Template
+	 */
 	protected function getTemplateModelFromLayoutUid($uid) {
 		$templateConf = $this->configuration['templates.'][$uid.'.'];
 		$templateModel = new Tx_Fluidpage_Model_Template($uid, $templateConf);
 		return $templateModel;
 	}
 
+	/**
+	 * This method walks the rootline and makes the determination about which templateUID to use for the current page.
+	 * @param $rootLine
+	 * @return
+	 */
 	protected function getLayoutUidFromRootline($rootLine) {
 		if (is_array ($rootLine)) {
 			$thisLevel = count($rootLine) - 1;

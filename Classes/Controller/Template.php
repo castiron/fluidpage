@@ -9,28 +9,71 @@ class Tx_Fluidpage_Controller_Template {
 	private $view;
 	private $cObj;
 
+	/**
+	 * Construct method for the controller
+	 * @param $configuration
+	 * @param $cObj
+	 */
 	public function __construct($configuration,$cObj) {
 		$this->configuration = $configuration;
 		$this->cObj = $cObj;
 	}
 
+	/**
+	 * The main method on the controller, it sets up the view, initializes it, and outputs it.
+	 * @return string
+	 */
+	public function render() {
+		$this->view = $this->createView();
+		$this->configureViewTemplateSource();
+		$this->configureViewPartialPath();
+		$this->configureViewFormat();
+		$this->configureViewAssignVariables();
+		$this->configureViewAssignConstants();
+
+		$output = $this->getViewOutput();
+		return $output;
+	}
+
+	/**
+	 * Sets the template object for this execution
+	 * @param $template Tx_Fluidpage_Model_Template
+	 * @return void
+	 */
 	public function setTemplate($template) {
 		$this->template = $template;
 	}
 
+	/**
+	 * Get the template for the current execution
+	 * @return Tx_Fluidpage_Model_Template the template object that's being rendered
+	 */
 	public function getTemplate() {
 		return $this->template;
 	}
 
+	/**
+	 * Instantiates a Fluid view
+	 * @param $template
+	 * @return Tx_Fluid_View_StandaloneView
+	 */
 	protected function createView($template) {
 		$view = t3lib_div::makeInstance('Tx_Fluid_View_StandaloneView');
 		return $view;
 	}
 
+	/**
+	 * Sets the HTML source returned by the template model on the Fluid view object
+	 * @return void
+	 */
 	protected function configureViewTemplateSource() {
 		$this->view->setTemplateSource($this->getTemplate()->getBody());
 	}
 
+	/**
+	 * Sets the partial path on the Fluid view object from the corresponding value in settings Typoscript
+	 * @return void
+	 */
 	protected function configureViewPartialPath() {
 		// set partial path
 		$partialRootPath = t3lib_div::getFileAbsFileName($this->configuration['partialRootPath']);
@@ -39,6 +82,11 @@ class Tx_Fluidpage_Controller_Template {
 		}
 	}
 
+	/**
+	 * Merges global constants and template constants and assigns them to the Fluid view object
+	 * @throws InvalidArgumentException
+	 * @return void
+	 */
 	protected function configureViewAssignConstants() {
 		$globalConstants = $this->configuration['constants.'];
 		$templateConstants = $this->getTemplate()->getConstants();
@@ -54,6 +102,12 @@ class Tx_Fluidpage_Controller_Template {
 		$this->view->assign('constants',$constants);
 	}
 
+	/**
+	 * Merges global variables and template variables and assigns them to the Fluid view object.
+	 * Also assigns fixed fluidpage variables to the view object.
+	 * @throws InvalidArgumentException
+	 * @return void
+	 */
 	protected function configureViewAssignVariables() {
 		$globalVariables = $this->configuration['variables.'];
 		$templateVariables = $this->getTemplate()->getVariables();
@@ -77,12 +131,21 @@ class Tx_Fluidpage_Controller_Template {
 		$this->view->assign('layout', $this->template->getLayoutUid());
 	}
 
+	/**
+	 * Returns the rendered view output. We need to remove the closing body tag, as TYPO3 will put that in when
+	 * it renders the page.
+	 * @return string
+	 */
 	protected function getViewOutput() {
  		$output = $this->view->render();
 		$output = str_replace('</body>','',$output);
 		return $output;
 	}
 
+	/**
+	 * Gets the output format from the template and sets it on the view.
+	 * @return void
+	 */
 	protected function configureViewFormat() {
 		// set format
 		$format = $this->getTemplate()->getFormat();
@@ -93,17 +156,6 @@ class Tx_Fluidpage_Controller_Template {
 		}
 	}
 
-	public function render() {
-		$this->view = $this->createView();
-		$this->configureViewTemplateSource();
-		$this->configureViewPartialPath();
-		$this->configureViewFormat();
-		$this->configureViewAssignVariables();
-		$this->configureViewAssignConstants();
-
-		$output = $this->getViewOutput();
-		return $output;
-	}
 }
 
 ?>
