@@ -3,7 +3,7 @@
 // This file was generated on 2011-10-21 09:57
 
 $extensionPath = t3lib_extMgm::extPath('fluidpage');
-$extensionClassesPath = $extensionPath . 'classes/';
+$extensionClassesPath = $extensionPath . 'Classes/';
 return array(
 	'tx_fluidpage_controller_template' => $extensionClassesPath . 'Controller/Template.php',
 	'tx_fluidpage_pi1' => $extensionClassesPath . 'Controller/tmp.php',
