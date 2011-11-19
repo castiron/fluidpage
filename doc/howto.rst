@@ -96,13 +96,6 @@ On your root page (or wherever you like to put your master Typoscript template) 
 		2.expAll = 0
 	}
 
-	lib.content.leftCol < styles.content.get
-	lib.content.leftCol.select.where = colPos=1
-
-	lib.content.rightCol < styles.content.get
-	lib.content.rightCol.select.where = colPos=2
-	lib.content.rightCol.slide = -1
-
 	page = PAGE
 	page {
 		10 < plugin.tx_fluidpage_pi1
@@ -159,8 +152,6 @@ On your root page (or wherever you like to put your master Typoscript template) 
 	
 It's worth pausing for a moment here to review what's happening in this typoscript. The first two objects are lib.primaryNav and lib.secondaryNav. These are simple HMENU objects that are used to render the primary and secondary navigation. I've included them here so that you can see how you can reference a typoscript object in a fluidPage template using a fluid view helper (eg: <f:CObject typoscriptObjectPath="lib.secondaryNav" />). The ability to reference Typoscript CObjects directly in your fluidPage template is an important part of this approach because it means there is no longer a mapping step, as there was in TemplaVoila and in AutoMakeTemplate. Instead of mapping Typoscript objects to templates, you simply reference them directly in your template by way of view helpers.
 
-After the menu objects, there are some lib.content declarations. In this section, we're simple declaring the various content areas that are available in the backend. Remember when you set the left column to have a colPos of 1? This is where we reference that column position and assign the rendered content for that column to a typoscript object, which can in turn be rendered in the fluid template just like the primary or secondary navigation. Notice that the right column is configured to slide down the page tree, using existing Typoscript properties.
-
 In the page declaration we tell TYPO3 to take the output of plugin.tx_fluidpage_pi1 and assign it to page.10. This is similar to how TemplaVoila works. The "templates" section of the fluidPage configuration is the key part. Each item under templates (1, 2, etc) refers to the UID of a back-end layout. Let's look at one template declaration::
 
 	templates {
@@ -182,9 +173,17 @@ The constants section contains arbitrary constants declarations which can be ref
 		<f:CObject typoscriptObjectPath="lib.breadcrumb" />			
 		<div id="mainContent">
 			<h2>Left Column</h2>
-			<f:CObject typoscriptObjectPath="lib.content.leftCol" />
+			<fp:content colPos="1" />
 		</div>
 	</div>
+
+Note that we use a custom Fluid viewhelper to render the content column in this example. This viewhelper must be declared inside the LAYOUT section of the template in order to use the "fp" shorthand you see here. The declaration for this viewhelper looks like this:
+
+	{namespace fp=Tx_Fluidpage_ViewHelpers}
+
+The Fluidpage content viewhelper takes two arguments as XML attributes, colPos, which references the colPos defined in the backend layout, and slide. The value of the slide argument is specified when you need a content slide, and can be used as the "slide" declaration in a CONTENT object in TypoScript might be used to define a content slide.
+
+It's also possible, of course, to vary the colPos rendered at a specific DOM node in the HTML from template to template by specifying the colPos for a given template in the template constants (see above). A constant value marker, like you see in the showLeftColumn template above, can be used in the "colPos" or "slide" attribute values. The benefit of this kind of flexibility is that in a two column layout and a three column layout the left and right columns may have the same colPos.
 
 Constants make it possible to have, for example, a single template with sections that show up depending on how a specific template is configured. Constants also make it easier to re-use template functionality in multiple backend layouts.
 
