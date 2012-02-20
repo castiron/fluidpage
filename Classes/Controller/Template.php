@@ -57,7 +57,7 @@ class Tx_Fluidpage_Controller_Template {
 	 * @param $template
 	 * @return Tx_Fluid_View_StandaloneView
 	 */
-	protected function createView($template) {
+	protected function createView() {
 		$view = t3lib_div::makeInstance('Tx_Fluid_View_StandaloneView');
 		return $view;
 	}
