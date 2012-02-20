@@ -1,3 +1,166 @@
-2011-03-15 Cast Iron Coding, Inc  <zach@castironcoding.com>
+commit 5a789c23ee3ad35effc96d57b395d7ad7232e198
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Mon Feb 20 12:10:47 2012 -0800
 
-	* initial code generated with kickstarter
+    [CHORE] Removed .DS_Store file and updated .gitignore
+
+commit e3d14b3c5c5270e84b2a95904e1dbb71b02e025c
+Merge: d91ec4d 79e7f2f
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Mon Feb 20 12:06:10 2012 -0800
+
+    Merge branch 'master' of git://github.com/Tryweb/fluidpage
+
+commit d91ec4df21244a44d8f8368e96ac11513f300e56
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Mon Feb 20 11:55:24 2012 -0800
+
+    [FEATURE] Added suppport for Fluid Layouts back into FluidPages. Layoutpath can now be set in Typoscript and the extension will respect any layout tags that are present within the ###layout### subpart marker
+
+commit 79e7f2f7bdfec4d92bb242c328d5f1db2c7cd069
+Author: Sebastiaan van Parijs <svparijs@tryweb.nl>
+Date:   Fri Feb 10 14:15:11 2012 +0100
+
+    Removed warning when using News plugin
+
+commit 1539c945f4a9e28da88c34b52917a6a92a85da82
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Tue Dec 13 11:33:21 2011 -0800
+
+    [BUGFIX] Removed the addPlugin call in ext_tables.php; Fluidpage does not contain a plugin that can be inserted on a page as a content element
+
+commit f3c22e12c7ff5d809172702aa79e63d000afe6ed
+Merge: 8fcc92c b80bb90
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Fri Nov 18 16:00:01 2011 -0800
+
+    Merge branch 'master' of github.com:castiron/fluidpage
+
+commit 8fcc92cf43534744f039973cac0c1d2a6a954039
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Fri Nov 18 11:42:22 2011 -0800
+
+    [CHORE] Released 0.2.0 to TER
+
+commit b80bb90ad993e0ed76671db97825028f7a67964f
+Author: lthurston <lucas@castironcoding.com>
+Date:   Tue Nov 8 10:38:57 2011 -0800
+
+    Modified documentation to describe the new Fluidpage content viewhelper.
+
+commit b7381f0e0428d3b8ebe55385a91fed7d64a3079e
+Author: Lucas Thurston <lucas@castironcoding.com>
+Date:   Fri Nov 4 14:19:57 2011 -0700
+
+    [FEATURE] Content viewhelper created
+
+commit c0f5b06f1dce7f512d57e3cfc7d368dfb2d2eb9d
+Merge: f0e559d 697e471
+Author: Michael McManus <michaelorionmcmanus@gmail.com>
+Date:   Fri Oct 28 12:09:28 2011 -0700
+
+    Merge branch 'master' of github.com:castiron/fluidpage
+
+commit f0e559d1d4d0bfaeb5d3236ee0696681a6ae6b87
+Author: Michael McManus <michaelorionmcmanus@gmail.com>
+Date:   Fri Oct 28 12:09:11 2011 -0700
+
+    [CHORE] Modified permissions on files within the Classes directory.
+
+commit 697e471faa89ad1c890ecb5b62041c723b8fbbe4
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Fri Oct 28 07:35:52 2011 -0700
+
+    [BUGFIX] Corrected path to the Classes directory in ext_autoload
+
+commit c6974c1c3a6eed69f308e126252ece9fe1a1a7b1
+Author: Michael McManus <michaelorionmcmanus@gmail.com>
+Date:   Thu Oct 27 16:37:46 2011 -0700
+
+    [FEATURE] Process of adding backend_layout page fields to the front end rootline is more robust.
+
+commit 8c74517f0607afde31586c799a8684f78347270b
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Fri Oct 21 12:03:01 2011 -0700
+
+    [FEATURE] Properly commented all methods in code
+
+commit 7ee45df92cffc782f0e49984dca1ccfeb7dc93b9
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Fri Oct 21 11:49:14 2011 -0700
+
+    [FEATURE] Removed the ability to add layouts. FluidPage templates are whole HTML documents, so it doesn't make sense to wrap additional layout around the output
+
+commit 5d7e74e00f3eab7fb7e74526dac1edb2984c3b38
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Fri Oct 21 11:35:57 2011 -0700
+
+    [FEATURE] Refactored code to be less procedural and more in keeping with current TYPO3 dev practices
+    
+    Moved code out of pi1 and generally cleaned up the codebase. After looking at the fluidtemplate implemenation again, I tweaked some typoscript to keep things more in sync with fluidtemplate.
+
+commit 1b8d3d0c4c298aca6d61082be3c064866feaa26c
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Thu Oct 20 14:10:57 2011 -0700
+
+    [CHORE] Commiting after TER upload to reflect change to ext_emconf.php
+
+commit a1dbf2bb11f25e7f82a2fa9a1657402e5f4e5500
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Thu Oct 20 14:08:44 2011 -0700
+
+    [CHORE] Added extension icon and updated permissions on autoload file
+
+commit 797df262a8035ffc0b1b2b3e5e5504c0e307ba68
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Thu Oct 20 13:49:48 2011 -0700
+
+    [FEATURE] Added layout constants and global constants to the rendering of the fluid template
+
+commit aaa6b627483ce6f844fadf15bf9c77ed6600802b
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Thu Oct 20 13:49:12 2011 -0700
+
+    [BUGFIX] Removed body class field that FluidPage was adding to backend layout reocrds
+
+commit b3c4d1a51eca13e9a487260361c96b6fd8b579fa
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Thu Oct 20 13:48:34 2011 -0700
+
+    [CHORE] Removed old sample template assets that were no longer needed
+
+commit 94ddb31f1e294c357df33d9099a141edaee2d621
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Thu Oct 20 13:48:07 2011 -0700
+
+    [FEATURE] Added rootline field config to ext_localconf.php
+
+commit 98231a260c228e50e6aca23fd036a245a4d17343
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Thu Oct 20 13:47:06 2011 -0700
+
+    [FEATURE] Wrote basic documentation
+
+commit b11fb150c4669f6e6eb1b48292889d3f3d0fc3c7
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Thu Oct 20 13:46:41 2011 -0700
+
+    [CHORE] Removed the wizard files in doc
+
+commit c9f3eee522b5d022369f0fbc7d0c41b880c2cba2
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Thu Oct 20 13:46:11 2011 -0700
+
+    [FEATURE] Added a sample HTML template
+
+commit 94c9b88e7b3dd151ccd4e242862b0a77d39d8694
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Thu Oct 20 11:05:29 2011 -0700
+
+    [FEATURE] Removed the body class field from backend layouts; this can be handled with typoscript
+
+commit 236cf757455d62d46d69b4ecb3cc4a863ef9cc11
+Author: Zach Davis <zach@castironcoding.com>
+Date:   Thu Oct 20 09:41:59 2011 -0700
+
+    [FEATURE] First Commit
