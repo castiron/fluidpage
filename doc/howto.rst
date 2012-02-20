@@ -102,6 +102,20 @@ On your root page (or wherever you like to put your master Typoscript template) 
 		10 {
 			settings {
 				partialRootPath = EXT:fluidpage/Resources/Public/Partials/
+
+				# Constants, unlike variables, are set to literal values. They can be overridden
+				# in the constants for an individual template, below
+				constants {
+					# Example: using f:format.date, we can set the formatting of the date displayed on the site
+					dateFormat = m/d/Y
+
+					# Example: pulling a page id from constants lets us generate a one off link to a page on the site
+					sitemapPageId = {$pid.sitemap}
+
+					# Example: this value will be overriden by both templates below. If there were a template
+					# set up that did not assign a value to the bodyClass constant, it would equal this default value
+					bodyClass = standard
+				}
 		        variables {
 		        	tagline  = TEXT
 		        	tagline {
@@ -152,7 +166,7 @@ On your root page (or wherever you like to put your master Typoscript template) 
 	
 It's worth pausing for a moment here to review what's happening in this typoscript. The first two objects are lib.primaryNav and lib.secondaryNav. These are simple HMENU objects that are used to render the primary and secondary navigation. I've included them here so that you can see how you can reference a typoscript object in a fluidPage template using a fluid view helper (eg: <f:CObject typoscriptObjectPath="lib.secondaryNav" />). The ability to reference Typoscript CObjects directly in your fluidPage template is an important part of this approach because it means there is no longer a mapping step, as there was in TemplaVoila and in AutoMakeTemplate. Instead of mapping Typoscript objects to templates, you simply reference them directly in your template by way of view helpers.
 
-In the page declaration we tell TYPO3 to take the output of plugin.tx_fluidpage_pi1 and assign it to page.10. This is similar to how TemplaVoila works. The "templates" section of the fluidPage configuration is the key part. Each item under templates (1, 2, etc) refers to the UID of a back-end layout. Let's look at one template declaration::
+In the page declaration we tell TYPO3 to take the output of plugin.tx_fluidpage_pi1 and assign it to page.10. This is similar to how TemplaVoila works. The "templates" section of the fluidPage configuration is the key part. Each item under templates (1, 2, etc) refers to the UID of a back-end layout. Let's look at one template declaration:
 
 	templates {
 		1 {
@@ -166,7 +180,7 @@ In the page declaration we tell TYPO3 to take the output of plugin.tx_fluidpage_
 
 This tells FluidPage that when the backend layout for a given page is the backend layout record with the UID of 1, it should use the fluid template file at EXT:fluidpage/Resources/html/main.html. The path to this file could, of course, be a file in fileadmin/templates. At Cast Iron Coding we prefer to store all template assets in an extension, so we've made sure that FluidPage can parse paths beginning with EXT.
 
-The constants section contains arbitrary constants declarations which can be referenced in the fluid template as values in the {constants} array. For example, a fluid template could contain a condition that referenced a constant::
+The constants section contains arbitrary constants declarations which can be referenced in the fluid template as values in the {constants} array. For example, a fluid template could contain a condition that referenced a constant:
 
 	<f:if condition="{constants.showLeftColumn} == 1">
 	<div id="main">
@@ -176,6 +190,8 @@ The constants section contains arbitrary constants declarations which can be ref
 			<fp:content colPos="1" />
 		</div>
 	</div>
+
+Shared constants with default values can be defined in the "settings.constant" section of the plugin configuration (see the PAGE setup, in the Create a Typoscript template section above). These constant values are available to all templates but will be overridden by values specified in the template constants.
 
 Note that we use a custom Fluid viewhelper to render the content column in this example. This viewhelper must be declared inside the LAYOUT section of the template in order to use the "fp" shorthand you see here. The declaration for this viewhelper looks like this:
 
