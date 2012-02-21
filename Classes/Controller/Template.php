@@ -85,7 +85,6 @@ class Tx_Fluidpage_Controller_Template {
 	protected function configureViewLayoutPath() {
 		$layoutRootPath = t3lib_div::getFileAbsFileName($this->configuration['layoutRootPath']);
 		if($layoutRootPath) {
-			t3lib_div::debug($layoutRootPath);
 			$this->view->setLayoutRootPath($layoutRootPath);
 		}
 	}
