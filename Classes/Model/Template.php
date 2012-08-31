@@ -71,9 +71,7 @@ class Tx_Fluidpage_Model_Template {
 		$templateFile = $this->getFileName();
 		$path = t3lib_div::getFileAbsFileName($templateFile);
 		$content = file_get_contents($path);
-		$htmlParse = t3lib_div::makeInstance('t3lib_parsehtml');
-		$body = $htmlParse->getSubpart($content,'###LAYOUT###');
-		return $body;
+		return $content;
 	}
 
 }

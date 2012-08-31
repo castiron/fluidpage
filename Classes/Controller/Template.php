@@ -66,7 +66,7 @@ class Tx_Fluidpage_Controller_Template {
 	 * Sets the HTML source returned by the template model on the Fluid view object
 	 * @return void
 	 */
-	protected function configureViewTemplateSource() {
+	protected function configureViewTemplateSource() {		
 		$this->view->setTemplateSource($this->getTemplate()->getBody());
 	}
 
@@ -146,6 +146,8 @@ class Tx_Fluidpage_Controller_Template {
 	 */
 	protected function getViewOutput() {
  		$output = $this->view->render();
+		$htmlParse = t3lib_div::makeInstance('t3lib_parsehtml');
+		$output = $htmlParse->getSubpart($output,'###LAYOUT###');
 		$output = str_replace('</body>','',$output);
 		return $output;
 	}
