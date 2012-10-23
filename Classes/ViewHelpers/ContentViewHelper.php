@@ -14,10 +14,11 @@ class Tx_Fluidpage_ViewHelpers_ContentViewHelper extends Tx_Fluid_Core_ViewHelpe
 	*
 	* @param integer $colPos The colPos value in the db
 	* @param integer $slide The value of the slide
+	* @param integer $pageUid The page id to get content from
 	* @return String The content
 	* @author Lucas Thurston
 	*/
-	public function render($colPos, $slide = 0) {
+	public function render($colPos, $slide = 0, $pageUid = 0) {
 		$type = 'CONTENT';
 		$conf = array(
 			'table' => 'tt_content',
@@ -27,6 +28,10 @@ class Tx_Fluidpage_ViewHelpers_ContentViewHelper extends Tx_Fluid_Core_ViewHelpe
 				'languageField' => 'sys_language_uid'
 			)
 		);
+		if($pageUid) {
+			$conf['select.']['pidInList'] = $pageUid;
+		}
+
 		if($slide) {
 			$conf['slide'] = $slide;
 		}
