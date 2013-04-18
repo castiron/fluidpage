@@ -1,3 +1,6 @@
+includeLibs {
+	tx_fluidpage_pi1 = EXT:fluidpage/Classes/Utility/TyposcriptUtility.php
+}
 plugin.tx_fluidpage_pi1 {
 
 	settings {
