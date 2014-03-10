@@ -4,7 +4,7 @@
 	* Content view helper
 	*
 	* @package fluidpage
-	* @subpackage 
+	* @subpackage
 	* @version
 	*/
 class Tx_Fluidpage_ViewHelpers_ContentViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
@@ -15,10 +15,11 @@ class Tx_Fluidpage_ViewHelpers_ContentViewHelper extends Tx_Fluid_Core_ViewHelpe
 	* @param integer $colPos The colPos value in the db
 	* @param integer $slide The value of the slide
 	* @param integer $pageUid The page id to get content from
+	* @param boolean $searchIndexWrap Wrap the output with search indexing tags
 	* @return String The content
 	* @author Lucas Thurston
 	*/
-	public function render($colPos, $slide = 0, $pageUid = 0) {
+	public function render($colPos, $slide = 0, $pageUid = 0, $searchIndexWrap = true) {
 		$type = 'CONTENT';
 		$conf = array(
 			'table' => 'tt_content',
@@ -35,7 +36,13 @@ class Tx_Fluidpage_ViewHelpers_ContentViewHelper extends Tx_Fluid_Core_ViewHelpe
 		if($slide) {
 			$conf['slide'] = $slide;
 		}
-		return $GLOBALS['TSFE']->cObj->cObjGetSingle($type,$conf);
+
+		$out = $GLOBALS['TSFE']->cObj->cObjGetSingle($type,$conf);
+
+		if($searchIndexWrap) {
+			$out = "<!--TYPO3SEARCH_begin-->" . $out . "<!--TYPO3SEARCH_end-->";
+		}
+		return $out;
 	}
 }
 
