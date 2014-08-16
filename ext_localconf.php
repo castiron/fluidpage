@@ -10,4 +10,12 @@ if(!empty($GLOBALS["TYPO3_CONF_VARS"]["FE"]["addRootLineFields"])) {
 	$GLOBALS["TYPO3_CONF_VARS"]["FE"]["addRootLineFields"] .= "backend_layout,backend_layout_next_level";
 }
 
-?>
+if(!function_exists('user_activeTemplateIsOneOf')) {
+	/**
+	 * @param $templateUid
+	 * @return bool
+	 */
+	function user_activeBackendLayoutIs($templateUid) {
+		return t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->get('Tx_Fluidpage_Typoscript_Conditions')->activeBackendLayoutIs($templateUid) ? true : false;
+	}
+}
