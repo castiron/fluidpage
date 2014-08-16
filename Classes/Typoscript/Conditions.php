@@ -30,8 +30,7 @@ class Tx_Fluidpage_Typoscript_Conditions {
 	 * @return string
 	 */
 	protected function getActiveBackendLayout() {
-		$template = $this->templateFactory->getTemplateFromRootline($GLOBALS['TSFE']->rootLine);
-		return $template->getLayoutUid();
+		return $this->templateFactory->getTemplateFromRootline($GLOBALS['TSFE']->rootLine)->getLayoutUid();
 	}
 
 }
