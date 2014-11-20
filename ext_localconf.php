@@ -10,7 +10,7 @@ if(!empty($GLOBALS["TYPO3_CONF_VARS"]["FE"]["addRootLineFields"])) {
 	$GLOBALS["TYPO3_CONF_VARS"]["FE"]["addRootLineFields"] .= "backend_layout,backend_layout_next_level";
 }
 
-if(!function_exists('user_activeTemplateIsOneOf')) {
+if(!function_exists('user_activeBackendLayoutIs')) {
 	/**
 	 * @param $templateUid
 	 * @return bool
