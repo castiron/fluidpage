@@ -1,11 +1,23 @@
 <?php
 
+/**
+ * Class Tx_Fluidpage_Controller_Template
+ */
 class Tx_Fluidpage_Controller_Template {
+
+	/**
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+	 */
+	var $objectManager;
 
 	private $defaultFormat = 'html';
 	private $reservedVariableConstantNames = array('data', 'current', 'page');
 	private $template;
 	private $configuration = array();
+
+	/**
+	 * @var \TYPO3\CMS\Fluid\View\StandaloneView
+	 */
 	private $view;
 	private $cObj;
 
@@ -31,8 +43,32 @@ class Tx_Fluidpage_Controller_Template {
 		$this->configureViewFormat();
 		$this->configureViewAssignVariables();
 		$this->configureViewAssignConstants();
+		$this->applyAssignmentHooks();
 		$output = $this->getViewOutput();
 		return $output;
+	}
+
+	/**
+	 *
+	 */
+	protected function applyAssignmentHooks() {
+		/**
+		 * Example entry looks like CIC\Some\Namespace\SomeClass->myMethod
+		 * The class will be instantiated with reflection, and the method is expected to return an array of objects
+		 * to assign to the view.
+		 */
+		$hooksArr = $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['fluidpage:Tx_Fluidpage_Controller_Template']['viewAssignmentHooks'];
+		if (is_array($hooksArr) && count($hooksArr)) {
+			$this->initObjectManager();
+			foreach($hooksArr as $hook) {
+				$conf = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode('->', $hook);
+				if($obj = $this->objectManager->get($conf[0])) {
+					if ($method = $conf[1]) {
+						$this->view->assignMultiple($obj->$method());
+					}
+				}
+			}
+		}
 	}
 
 	/**
@@ -58,7 +94,7 @@ class Tx_Fluidpage_Controller_Template {
 	 * @return Tx_Fluid_View_StandaloneView
 	 */
 	protected function createView() {
-		$view = t3lib_div::makeInstance('Tx_Fluid_View_StandaloneView');
+		$view = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
 		return $view;
 	}
 
@@ -76,14 +112,14 @@ class Tx_Fluidpage_Controller_Template {
 	 */
 	protected function configureViewPartialPath() {
 		// set partial path
-		$partialRootPath = t3lib_div::getFileAbsFileName($this->configuration['partialRootPath']);
+		$partialRootPath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->configuration['partialRootPath']);
 		if($partialRootPath) {
 			$this->view->setPartialRootPath($partialRootPath);
 		}
 	}
 	
 	protected function configureViewLayoutPath() {
-		$layoutRootPath = t3lib_div::getFileAbsFileName($this->configuration['layoutRootPath']);
+		$layoutRootPath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->configuration['layoutRootPath']);
 		if($layoutRootPath) {
 			$this->view->setLayoutRootPath($layoutRootPath);
 		}
@@ -166,6 +202,13 @@ class Tx_Fluidpage_Controller_Template {
 		}
 	}
 
-}
+	/**
+	 *
+	 */
+	protected function initObjectManager() {
+		if (!is_object($this->objectManager)) {
+			$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		}
+	}
 
-?>
+}
