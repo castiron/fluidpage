@@ -1,6 +1,6 @@
 <?php
 
-class tx_fluidpage_pi1 extends tslib_pibase {
+class tx_fluidpage_pi1 {
 
 	public $prefixId = 'tx_fluidpage_pi1';		// Same as class name
 	public $scriptRelPath = 'pi1/class.tx_fluidpage_pi1.php';	// Path to this script relative to the extension dir.

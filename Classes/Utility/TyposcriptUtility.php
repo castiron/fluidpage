@@ -14,7 +14,7 @@ class Tx_Fluidpage_Utility_TyposcriptUtility implements t3lib_Singleton {
 //	}
 
 	public function __construct() {
-		$this->templateFactory = t3lib_div::makeInstance('Tx_Fluidpage_Service_TemplateFactory');
+		$this->templateFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Fluidpage_Service_TemplateFactory');
 	}
 
 	/**
@@ -25,7 +25,7 @@ class Tx_Fluidpage_Utility_TyposcriptUtility implements t3lib_Singleton {
 	 */
 	public function currentTemplateIsOneOf($content, $conf) {
 		$out = false;
-		$uids = t3lib_div::trimExplode(',', $conf['uids']);
+		$uids = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $conf['uids']);
 		if(count($uids) && $uids[0]) {
 			$template = $this->templateFactory->getTemplateFromRootline($GLOBALS['TSFE']->rootLine);
 			$layoutUid = $template->getLayoutUid();

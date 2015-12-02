@@ -7,7 +7,7 @@
 	* @subpackage
 	* @version
 	*/
-class Tx_Fluidpage_ViewHelpers_ContentViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_Fluidpage_ViewHelpers_ContentViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	* Fetches content from a column, slides possible
@@ -20,6 +20,7 @@ class Tx_Fluidpage_ViewHelpers_ContentViewHelper extends Tx_Fluid_Core_ViewHelpe
 	* @author Lucas Thurston
 	*/
 	public function render($colPos, $slide = 0, $pageUid = 0, $searchIndexWrap = true) {
+
 		$type = 'CONTENT';
 		$conf = array(
 			'table' => 'tt_content',

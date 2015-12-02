@@ -69,7 +69,7 @@ class Tx_Fluidpage_Model_Template {
 	 */
 	public function getBody() {
 		$templateFile = $this->getFileName();
-		$path = t3lib_div::getFileAbsFileName($templateFile);
+		$path = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templateFile);
 		$content = file_get_contents($path);
 		return $content;
 	}

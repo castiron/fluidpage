@@ -90,19 +90,17 @@ class Tx_Fluidpage_Controller_Template {
 
 	/**
 	 * Instantiates a Fluid view
-	 * @param $template
-	 * @return Tx_Fluid_View_StandaloneView
+	 * @return TYPO3\CMS\Fluid\View\StandaloneView
 	 */
 	protected function createView() {
-		$view = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
-		return $view;
+		return \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
 	}
 
 	/**
 	 * Sets the HTML source returned by the template model on the Fluid view object
 	 * @return void
 	 */
-	protected function configureViewTemplateSource() {		
+	protected function configureViewTemplateSource() {
 		$this->view->setTemplateSource($this->getTemplate()->getBody());
 	}
 
@@ -182,7 +180,7 @@ class Tx_Fluidpage_Controller_Template {
 	 */
 	protected function getViewOutput() {
  		$output = $this->view->render();
-		$htmlParse = t3lib_div::makeInstance('t3lib_parsehtml');
+		$htmlParse = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Html\\HtmlParser');
 		$output = $htmlParse->getSubpart($output,'###LAYOUT###');
 		$output = str_replace('</body>','',$output);
 		return $output;

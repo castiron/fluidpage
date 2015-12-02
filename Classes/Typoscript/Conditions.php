@@ -14,7 +14,7 @@ class Tx_Fluidpage_Typoscript_Conditions {
 	 * Need to pass an argument to TemplateFactory constructorc
 	 */
 	public function initializeObject() {
-		$this->templateFactory = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->create('Tx_Fluidpage_Service_TemplateFactory', array());
+		$this->templateFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Extbase_Object_Manager')->create('Tx_Fluidpage_Service_TemplateFactory', array());
 	}
 
 	/**

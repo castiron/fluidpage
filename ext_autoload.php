@@ -1,7 +1,7 @@
 <?php
 
 
-$extensionPath = t3lib_extMgm::extPath('fluidpage');
+$extensionPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('fluidpage');
 $extensionClassesPath = $extensionPath . 'Classes/';
 return array(
 	'tx_fluidpage_controller_template' => $extensionClassesPath . 'Controller/Template.php',
