@@ -1,0 +1,9 @@
+{
+	"name": "castiron/fluidpage",
+	"type": "typo3-cms-extension",
+	"description": "A TYPO3 extension that leverages fluid for page templates",
+	"homepage": "https://github.com/castiron/fluidpage.git",
+	"license": ["GPL-2.0+"],
+	"keywords": ["TYPO3 CMS"]
+}
+
