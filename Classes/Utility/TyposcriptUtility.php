@@ -1,5 +1,6 @@
 <?php
-class Tx_Fluidpage_Utility_TyposcriptUtility implements t3lib_Singleton {
+
+class Tx_Fluidpage_Utility_TyposcriptUtility implements \TYPO3\CMS\Core\SingletonInterface {
 
 //	/**
 //	 * @var Tx_Fluidpage_Service_TemplateFactory
