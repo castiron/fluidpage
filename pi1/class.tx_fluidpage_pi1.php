@@ -22,4 +22,3 @@ class tx_fluidpage_pi1 {
 	}
 
 }
-?>
