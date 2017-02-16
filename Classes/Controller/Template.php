@@ -38,8 +38,8 @@ class Tx_Fluidpage_Controller_Template {
 	public function render() {
 		$this->view = $this->createView();
 		$this->configureViewTemplateSource();
-		$this->configureViewLayoutPath();
-		$this->configureViewPartialPath();
+		$this->configureViewLayoutPaths();
+		$this->configureViewPartialPaths();
 		$this->configureViewFormat();
 		$this->configureViewAssignVariables();
 		$this->configureViewAssignConstants();
@@ -108,18 +108,18 @@ class Tx_Fluidpage_Controller_Template {
 	 * Sets the partial path on the Fluid view object from the corresponding value in settings Typoscript
 	 * @return void
 	 */
-	protected function configureViewPartialPath() {
+	protected function configureViewPartialPaths() {
 		// set partial path
-		$partialRootPath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->configuration['partialRootPath']);
-		if($partialRootPath) {
-			$this->view->setPartialRootPath($partialRootPath);
+		$partialRootPathConfig = $this->configuration['partialRootPaths.'];
+		if($partialRootPathConfig) {
+			$this->view->setPartialRootPaths($partialRootPathConfig);
 		}
 	}
 	
-	protected function configureViewLayoutPath() {
-		$layoutRootPath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->configuration['layoutRootPath']);
-		if($layoutRootPath) {
-			$this->view->setLayoutRootPath($layoutRootPath);
+	protected function configureViewLayoutPaths() {
+		$layoutRootPathConfig = $this->configuration['layoutRootPaths.'];
+		if($layoutRootPathConfig) {
+			$this->view->setLayoutRootPaths($layoutRootPathConfig);
 		}
 	}
 	

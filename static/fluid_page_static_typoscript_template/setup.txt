@@ -4,9 +4,15 @@ includeLibs {
 plugin.tx_fluidpage_pi1 {
 
 	settings {
-		partialRootPath = {$tx_fluidpage_pi1.settings.partialsPath}
-		layoutRootPath = {$tx_fluidpage_pi1.settings.layoutRootPath}
-		defaultFile = EXT:fluidpage/Resources/Public/html/template.html
+		partialRootPaths {
+			0 = {$tx_fluidpage_pi1.settings.partialsPath}
+		}
+		layoutRootPaths {
+			0 = {$tx_fluidpage_pi1.settings.layoutRootPath}
+		}
+		defaultFile {
+			0 = EXT:fluidpage/Resources/Public/html/template.html
+		}
 	}
 
 	templates {
@@ -14,7 +20,7 @@ plugin.tx_fluidpage_pi1 {
 	}
 
 	render {
-		partialRootPath < plugin.tx_fluidpage_pi1.settings.partialRootPath
-		layoutRootPath < plugin.tx_fluidpage_pi1.settings.layoutRootPath
+		partialRootPaths < plugin.tx_fluidpage_pi1.settings.0.partialRootPath
+		layoutRootPaths < plugin.tx_fluidpage_pi1.settings.0.layoutRootPath
 	}
 }
