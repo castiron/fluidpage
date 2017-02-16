@@ -10,9 +10,7 @@ plugin.tx_fluidpage_pi1 {
 		layoutRootPaths {
 			0 = {$tx_fluidpage_pi1.settings.layoutRootPath}
 		}
-		defaultFile {
-			0 = EXT:fluidpage/Resources/Public/html/template.html
-		}
+		defaultFile = EXT:fluidpage/Resources/Public/html/template.html
 	}
 
 	templates {
