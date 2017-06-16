@@ -1,59 +1,114 @@
 <?php namespace CIC\Fluidpage\ViewHelpers;
 
+use CIC\Cicbase\Traits\Database;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
+use TYPO3Fluid\Fluid\Core\Compiler\TemplateCompiler;
+use TYPO3Fluid\Fluid\Core\Parser\SyntaxTree\ViewHelperNode;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 
 /**
  * Class ifContentInColumnViewHelper
  * @package CIC\Fluidpage\ViewHelpers
  */
 class IfContentInColumnViewHelper extends AbstractConditionViewHelper {
-    protected $escapingInterceptorEnabled = FALSE;
+
+    use Database;
+
+    /**
+     * @var boolean
+     */
+    protected $escapeOutput = false;
+
+    /**
+     * @var bool
+     */
+    protected $escapeChildren = false;
+
+    /**
+     * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
+     */
+    public function initializeArguments()
+    {
+        $this->registerArgument('then', 'mixed', 'Value to be returned if the condition if met.', false);
+        $this->registerArgument('else', 'mixed', 'Value to be returned if the condition if not met.', false);
+
+        $this->registerArgument('colPos', 'int', 'The colPos value in the db', false, 0);
+        $this->registerArgument('slide', 'boolean', 'The value of the slide', false, 0);
+        $this->registerArgument('pageUid', 'int', 'The page id to get content from', false, 0);
+        $this->registerArgument('searchIndexWrap', 'boolean', 'Wrap the output with search indexing tags', false, true);
+        $this->registerArgument('alias', 'string', 'The alias of the content if it\'s found', false, 'content');
+    }
 
     /**
      * Fetches content from a column, slides possible, and aliases it inside an if block.
      * If the content exists, it will be rendered, if not, nothing inside the block will get rendered.
      * Usage:
      *
-    <fp:ifContentInColumn colPos="2">
-        <section class="super-padding">
-            {content}
-        </section>
-    </fp:ifContentInColumn>
+<fp:ifContentInColumn colPos="2">
+    <section class="super-padding">
+       {content}
+    </section>
+</fp:ifContentInColumn>
      *
-     * @param integer $colPos The colPos value in the db
-     * @param integer $slide The value of the slide
-     * @param integer $pageUid The page id to get content from
-     * @param boolean $searchIndexWrap Wrap the output with search indexing tags
-     * @param string $alias The alias of the content if it's found
-     * @return String The content
-     * @author Gabe Blair
+     * @return string
+     * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception\InvalidVariableException
      */
-    public function render($colPos, $slide = 0, $pageUid = 0, $searchIndexWrap = true, $alias = 'content') {
+    public function render() {
+        if ($out = static::getContent($this->arguments)) {
+            if($this->arguments['searchIndexWrap']) {
+                $out = "<!--TYPO3SEARCH_begin-->" . $out . "<!--TYPO3SEARCH_end-->";
+            }
+            $this->templateVariableContainer->add($this->arguments['alias'], $out);
+            return $this->renderThenChild();
+        } else {
+            return $this->renderElseChild();
+        }
+    }
+
+    /**
+     * @param array $arguments
+     * @return mixed
+     */
+    protected static function getContent($arguments = [])
+    {
         $type = 'CONTENT';
         $conf = array(
             'table' => 'tt_content',
             'select.' => array(
                 'orderBy' => 'sorting',
-                'where' => 'colPos=' . $colPos,
+                'where' => 'colPos=' . intval($arguments['colPos']),
                 'languageField' => 'sys_language_uid'
             )
         );
-        if($pageUid) {
-            $conf['select.']['pidInList'] = $pageUid;
+        if($arguments['pageUid']) {
+            $conf['select.']['pidInList'] = $arguments['pageUid'];
         }
 
-        if($slide) {
-            $conf['slide'] = $slide;
+        if($arguments['slide']) {
+            $conf['slide'] = $arguments['slide'];
         }
 
-        if ($out = $GLOBALS['TSFE']->cObj->cObjGetSingle($type, $conf)) {
-            if($searchIndexWrap) {
-                $out = "<!--TYPO3SEARCH_begin-->" . $out . "<!--TYPO3SEARCH_end-->";
-            }
-            $this->templateVariableContainer->add($alias, $out);
-            return $this->renderThenChild();
-        } else {
-            return $this->renderElseChild();
-        }
+        return $GLOBALS['TSFE']->cObj->cObjGetSingle($type, $conf);
+    }
+
+    /**
+     * @param null $arguments
+     * @return bool
+     */
+    protected static function evaluateCondition($arguments = null)
+    {
+        return (boolean) static::getContent($arguments);
+    }
+
+    /**
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     * @return mixed
+     */
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    {
+        $renderingContext->getVariableProvider()->add($arguments['alias'], static::getContent($arguments));
+        return parent::renderStatic($arguments, $renderChildrenClosure, $renderingContext); // TODO: Change the autogenerated stub
     }
 }

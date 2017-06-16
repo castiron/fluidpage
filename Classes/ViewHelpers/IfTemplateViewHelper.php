@@ -2,13 +2,6 @@
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
 
-/**
- * Content view helper
- *
- * @package fluidpage
- * @subpackage
- * @version
- */
 class IfTemplateViewHelper extends AbstractConditionViewHelper {
 
     /**

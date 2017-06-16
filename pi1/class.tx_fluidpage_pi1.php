@@ -20,5 +20,4 @@ class tx_fluidpage_pi1 {
 		$templateController->setTemplate($templateObject);
 		return $templateController->render();
 	}
-
 }
