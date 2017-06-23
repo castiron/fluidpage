@@ -115,14 +115,14 @@ class Tx_Fluidpage_Controller_Template {
 			$this->view->setPartialRootPaths($partialRootPathConfig);
 		}
 	}
-	
+
 	protected function configureViewLayoutPaths() {
 		$layoutRootPathConfig = $this->configuration['layoutRootPaths.'];
 		if($layoutRootPathConfig) {
 			$this->view->setLayoutRootPaths($layoutRootPathConfig);
 		}
 	}
-	
+
 
 	/**
 	 * Merges global constants and template constants and assigns them to the Fluid view object
@@ -180,9 +180,11 @@ class Tx_Fluidpage_Controller_Template {
 	 */
 	protected function getViewOutput() {
  		$output = $this->view->render();
-		$htmlParse = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Html\\HtmlParser');
-		$output = $htmlParse->getSubpart($output,'###LAYOUT###');
-		$output = str_replace('</body>','',$output);
+        $htmlParse = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            \TYPO3\CMS\Core\Service\MarkerBasedTemplateService::class
+        );
+        $output = $htmlParse->getSubpart($output, '###LAYOUT###');
+        $output = str_replace('</body>', '', $output);
 		return $output;
 	}
 

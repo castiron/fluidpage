@@ -1,12 +1,12 @@
-<?php
+<?php namespace CIC\Fluidpage\ViewHelpers;
 
-namespace CIC\Fluidpage\ViewHelpers;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
 
 /**
  * Class ifContentInColumnViewHelper
  * @package CIC\Fluidpage\ViewHelpers
  */
-class IfContentInColumnViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper {
+class IfContentInColumnViewHelper extends AbstractConditionViewHelper {
     protected $escapingInterceptorEnabled = FALSE;
 
     /**
@@ -14,11 +14,11 @@ class IfContentInColumnViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstr
      * If the content exists, it will be rendered, if not, nothing inside the block will get rendered.
      * Usage:
      *
-<fp:ifContentInColumn colPos="2">
-    <section class="super-padding">
-        {content}
-    </section>
-</fp:ifContentInColumn>
+    <fp:ifContentInColumn colPos="2">
+        <section class="super-padding">
+            {content}
+        </section>
+    </fp:ifContentInColumn>
      *
      * @param integer $colPos The colPos value in the db
      * @param integer $slide The value of the slide

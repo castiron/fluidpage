@@ -6,7 +6,10 @@
   "license": ["GPL-2.0+"],
   "keywords": ["TYPO3 CMS"],
   "autoload": {
-    "classmap": ["Classes", "pi1"]
+    "classmap": ["Classes", "pi1"],
+    "psr-4": {
+      "CIC\\Fluidpage\\": "Classes"
+    }
   }
 }
 

@@ -6,7 +6,7 @@
  * Time: 9:54 AM
  * To change this template use File | Settings | File Templates.
  */
- 
+
 class Tx_Fluidpage_Service_TemplateFactory {
 
 	private $configuration = array();
@@ -38,14 +38,14 @@ class Tx_Fluidpage_Service_TemplateFactory {
 	 */
 	protected function getTemplateModelFromLayoutUid($uid) {
 		$templateConf = $this->configuration['templates.'][$uid.'.'];
-		$templateModel = new Tx_Fluidpage_Model_Template($uid, $templateConf);
+		$templateModel = new Tx_Fluidpage_Model_Template($uid, $templateConf, $this->configuration['settings.']['defaultFile']);
 		return $templateModel;
 	}
 
 	/**
 	 * This method walks the rootline and makes the determination about which templateUID to use for the current page.
 	 * @param $rootLine
-	 * @return
+	 * @return Tx_Fluidpage_Model_Template
 	 */
 	protected function getLayoutUidFromRootline($rootLine) {
 		if (is_array ($rootLine)) {
@@ -88,5 +88,3 @@ class Tx_Fluidpage_Service_TemplateFactory {
 	}
 
 }
-
-?>

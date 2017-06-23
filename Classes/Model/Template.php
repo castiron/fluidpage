@@ -6,20 +6,23 @@
  * Time: 9:53 AM
  * To change this template use File | Settings | File Templates.
  */
- 
+
 class Tx_Fluidpage_Model_Template {
 
 	private $configuration = array();
 	private $layoutUid = 0;
+	protected $defaultFile = '';
 
-	/**
-	 * The template model constructor method
-	 * @param $layoutUid
-	 * @param $configuration
-	 */
-	public function __construct($layoutUid, $configuration) {
+    /**
+     * The template model constructor method
+     * @param $layoutUid
+     * @param $configuration
+     * @param $defaultFile
+     */
+	public function __construct($layoutUid, $configuration, $defaultFile) {
 		$this->layoutUid = $layoutUid;
 		$this->configuration = $configuration;
+		$this->defaultFile = $defaultFile;
 	}
 
 	/**
@@ -27,7 +30,7 @@ class Tx_Fluidpage_Model_Template {
 	 * @return string
 	 */
 	public function getFileName() {
-		return $this->configuration['file'];
+		return $this->configuration['file'] ?: $this->defaultFile;
 	}
 
 	/**
