@@ -1,6 +1,10 @@
-<?php
+<?php namespace CIC\Fluidpage\Controller;
 
-class Tx_Fluidpage_Controller_Template {
+use TYPO3\CMS\Core\Html\HtmlParser;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Fluid\View\StandaloneView;
+
+class Template {
 
 	private $defaultFormat = 'html';
 	private $reservedVariableConstantNames = array('data', 'current', 'page');
@@ -58,7 +62,7 @@ class Tx_Fluidpage_Controller_Template {
 	 * @return Tx_Fluid_View_StandaloneView
 	 */
 	protected function createView() {
-		$view = t3lib_div::makeInstance('Tx_Fluid_View_StandaloneView');
+		$view = GeneralUtility::makeInstance(StandaloneView::class);
 		return $view;
 	}
 
@@ -66,7 +70,7 @@ class Tx_Fluidpage_Controller_Template {
 	 * Sets the HTML source returned by the template model on the Fluid view object
 	 * @return void
 	 */
-	protected function configureViewTemplateSource() {		
+	protected function configureViewTemplateSource() {
 		$this->view->setTemplateSource($this->getTemplate()->getBody());
 	}
 
@@ -81,14 +85,14 @@ class Tx_Fluidpage_Controller_Template {
 			$this->view->setPartialRootPath($partialRootPath);
 		}
 	}
-	
+
 	protected function configureViewLayoutPath() {
 		$layoutRootPath = t3lib_div::getFileAbsFileName($this->configuration['layoutRootPath']);
 		if($layoutRootPath) {
 			$this->view->setLayoutRootPath($layoutRootPath);
 		}
 	}
-	
+
 
 	/**
 	 * Merges global constants and template constants and assigns them to the Fluid view object
@@ -146,7 +150,7 @@ class Tx_Fluidpage_Controller_Template {
 	 */
 	protected function getViewOutput() {
  		$output = $this->view->render();
-		$htmlParse = t3lib_div::makeInstance('t3lib_parsehtml');
+		$htmlParse = GeneralUtility::makeInstance(HtmlParser::class);
 		$output = $htmlParse->getSubpart($output,'###LAYOUT###');
 		$output = str_replace('</body>','',$output);
 		return $output;
@@ -165,7 +169,4 @@ class Tx_Fluidpage_Controller_Template {
 			$this->view->setFormat($this->defaultFormat);
 		}
 	}
-
 }
-
-?>

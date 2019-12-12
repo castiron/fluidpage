@@ -1,12 +1,15 @@
-<?php
+<?php namespace CIC\Fluidpage\Typoscript;
+
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
- * Class Tx_Fluidpage_Typoscript_Conditions
+ * Class Conditions
  */
-class Tx_Fluidpage_Typoscript_Conditions {
+class Conditions {
 
 	/**
-	 * @var Tx_Fluidpage_Service_TemplateFactory
+	 * @var \CIC\Fluidpage\Service\TemplateFactory
 	 */
 	var $templateFactory;
 
@@ -14,7 +17,7 @@ class Tx_Fluidpage_Typoscript_Conditions {
 	 * Need to pass an argument to TemplateFactory constructorc
 	 */
 	public function initializeObject() {
-		$this->templateFactory = t3lib_div::makeInstance('Tx_Extbase_Object_Manager')->create('Tx_Fluidpage_Service_TemplateFactory', array());
+		$this->templateFactory = GeneralUtility::makeInstance(ObjectManager::class)->get(TemplateFactory::class, array());
 	}
 
 	/**
@@ -30,7 +33,7 @@ class Tx_Fluidpage_Typoscript_Conditions {
 	 * @return string
 	 */
 	protected function getActiveBackendLayout() {
-		return $this->templateFactory->getTemplateFromRootline($GLOBALS['TSFE']->rootLine)->getLayoutUid();
+        $rootLine = GeneralUtility::makeInstance(RootlineUtility::class)->get();
+		return $this->templateFactory->getTemplateFromRootline($rootLine)->getLayoutUid();
 	}
-
 }

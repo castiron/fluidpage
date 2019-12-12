@@ -1,4 +1,6 @@
-<?php
+<?php namespace CIC\Fluidpage\Model;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Created by JetBrains PhpStorm.
  * User: zdavis
@@ -6,8 +8,8 @@
  * Time: 9:53 AM
  * To change this template use File | Settings | File Templates.
  */
- 
-class Tx_Fluidpage_Model_Template {
+
+class Template {
 
 	private $configuration = array();
 	private $layoutUid = 0;
@@ -69,9 +71,7 @@ class Tx_Fluidpage_Model_Template {
 	 */
 	public function getBody() {
 		$templateFile = $this->getFileName();
-		$path = t3lib_div::getFileAbsFileName($templateFile);
-		$content = file_get_contents($path);
-		return $content;
+		$path = GeneralUtility::getFileAbsFileName($templateFile);
+		return file_get_contents($path);
 	}
-
 }

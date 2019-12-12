@@ -1,4 +1,6 @@
-<?php
+<?php namespace CIC\Fluidpage\ViewHelpers;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
+
 /**
 	* Content view helper
 	*
@@ -6,7 +8,7 @@
 	* @subpackage
 	* @version
 	*/
-class Tx_Fluidpage_ViewHelpers_IfTemplateViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractConditionViewHelper {
+class IfTemplateViewHelper extends AbstractConditionViewHelper {
 
 	/**
 	 * @param string $templateUids

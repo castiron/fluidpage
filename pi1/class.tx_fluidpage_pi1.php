@@ -1,5 +1,6 @@
 <?php
 
+die('test');
 class tx_fluidpage_pi1 extends tslib_pibase {
 
 	public $prefixId = 'tx_fluidpage_pi1';		// Same as class name
@@ -22,4 +23,3 @@ class tx_fluidpage_pi1 extends tslib_pibase {
 	}
 
 }
-?>

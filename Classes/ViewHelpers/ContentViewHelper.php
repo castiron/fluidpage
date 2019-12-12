@@ -1,4 +1,6 @@
-<?php
+<?php namespace CIC\Fluidpage\ViewHelpers;
+
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
 	* Content view helper
@@ -7,7 +9,7 @@
 	* @subpackage
 	* @version
 	*/
-class Tx_Fluidpage_ViewHelpers_ContentViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class ContentViewHelper extends AbstractViewHelper {
 
 	/**
 	* Fetches content from a column, slides possible
@@ -45,5 +47,3 @@ class Tx_Fluidpage_ViewHelpers_ContentViewHelper extends Tx_Fluid_Core_ViewHelpe
 		return $out;
 	}
 }
-
-?>

@@ -1,4 +1,5 @@
-<?php
+<?php namespace CIC\Fluidpage\Service;
+
 /**
  * Created by JetBrains PhpStorm.
  * User: zdavis
@@ -6,8 +7,8 @@
  * Time: 9:54 AM
  * To change this template use File | Settings | File Templates.
  */
- 
-class Tx_Fluidpage_Service_TemplateFactory {
+
+class TemplateFactory {
 
 	private $configuration = array();
 
@@ -23,12 +24,11 @@ class Tx_Fluidpage_Service_TemplateFactory {
 	/**
 	 * Takes the rootline as an argument and uses it to determine which template model to return for the current page.
 	 * @param $rootline
-	 * @return Tx_Fluidpage_Model_Template
+	 * @return \CIC\Fluidpage\Model\Template
 	 */
 	public function getTemplateFromRootline($rootline) {
 		$layoutUid = $this->getLayoutUidFromRootline($rootline);
-		$templateModel = $this->getTemplateModelFromLayoutUid($layoutUid);
-		return $templateModel;
+		return $this->getTemplateModelFromLayoutUid($layoutUid);
 	}
 
 	/**
@@ -38,8 +38,7 @@ class Tx_Fluidpage_Service_TemplateFactory {
 	 */
 	protected function getTemplateModelFromLayoutUid($uid) {
 		$templateConf = $this->configuration['templates.'][$uid.'.'];
-		$templateModel = new Tx_Fluidpage_Model_Template($uid, $templateConf);
-		return $templateModel;
+		return new Template($uid, $templateConf);
 	}
 
 	/**
@@ -82,11 +81,8 @@ class Tx_Fluidpage_Service_TemplateFactory {
 					$layoutUID = $crawl['templateRec'];
 				}
 			}
-
 		}
 		return $layoutUID;
 	}
-
 }
 
-?>
